@@ -40,7 +40,7 @@ namespace ElevenNote.Services
                     ctx
                     .Notes
                     .Where(e => e.OwnerId == _userId)
-                    .Select(e => new NoteListItems { NoteId = e.NoteId, Title = e.Title, CreatedUtc = e.CreatedUtc });
+                    .Select(e => new NoteListItems { NoteId = e.NoteId, Title = e.Title,IsStarred=e.IsStarred, CreatedUtc = e.CreatedUtc });
                 return query.ToArray();
             }
         }
