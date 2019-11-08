@@ -32,7 +32,7 @@ namespace ElevenNote.Services
             }
         }
 
-        public IEnumerable<NoteListItems>GetNotes()
+        public IEnumerable<NoteListItems> GetNotes()
         {
             using (var ctx = new ApplicationDbContext())
             {
@@ -40,7 +40,7 @@ namespace ElevenNote.Services
                     ctx
                     .Notes
                     .Where(e => e.OwnerId == _userId)
-                    .Select(e => new NoteListItems { NoteId = e.NoteId, Title = e.Title,IsStarred=e.IsStarred, CreatedUtc = e.CreatedUtc });
+                    .Select(e => new NoteListItems { NoteId = e.NoteId, Title = e.Title, IsStarred = e.IsStarred, CreatedUtc = e.CreatedUtc });
                 return query.ToArray();
             }
         }
@@ -83,12 +83,12 @@ namespace ElevenNote.Services
         }
         public bool DeleteNote(int noteId)
         {
-            using(var ctx=new ApplicationDbContext())
+            using (var ctx = new ApplicationDbContext())
             {
                 var entity = ctx
                     .Notes
                     .Single(e => e.NoteId == noteId && e.OwnerId == _userId);
-
+                ctx.Notes.Remove(entity);
                 return ctx.SaveChanges() == 1;
             }
         }
